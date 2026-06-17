@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
+import { ui, defaultLang, type Lang } from '../i18n/ui';
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
-const links = [
-  { label: 'Catalog', href: `${base}products` },
-  { label: 'Solutions', href: `${base}solutions` },
-  { label: 'Case Studies', href: `${base}case-studies` },
-  { label: 'About', href: `${base}about` },
-];
 
-export default function NavBar() {
+export default function NavBar({ lang = defaultLang as Lang }: { lang?: Lang }) {
+  const t = ui[lang];
+  const links = [
+    { label: t['nav.catalog'], href: `${base}products` },
+    { label: t['nav.solutions'], href: `${base}solutions` },
+    { label: t['nav.cases'], href: `${base}case-studies` },
+    { label: t['nav.about'], href: `${base}about` },
+  ];
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -53,7 +55,7 @@ export default function NavBar() {
             href={`${base}request`}
             className="hidden sm:inline-flex items-center gap-2 bg-[var(--primary)] text-white text-[0.85rem] font-semibold px-4 py-2.5 rounded-[9px] shadow-[0_10px_28px_-10px_rgba(224,90,30,0.7)] hover:brightness-105 hover:-translate-y-0.5 transition-[transform,filter] duration-200"
           >
-            Request Spec Sheet
+            {t['cta.request']}
           </a>
           <button
             className="md:hidden w-10 h-10 grid place-items-center border border-[var(--line-strong)] rounded-lg"
@@ -74,7 +76,7 @@ export default function NavBar() {
             </a>
           ))}
           <a href={`${base}request`} className="mt-3 text-center bg-[var(--primary)] text-white font-semibold py-3 rounded-[9px]">
-            Request Spec Sheet
+            {t['cta.request']}
           </a>
         </nav>
       )}

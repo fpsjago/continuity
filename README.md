@@ -24,3 +24,16 @@ Home · Solutions (+ detail) · Products (+ spec-sheet PDP) · Case Studies (+ d
 - The Request form is a client-side demo; wire it to your endpoint.
 
 Template by Fullstack Evolved LLC
+
+## Internationalization (i18n-ready)
+English ships live; Spanish is **wired and ready**:
+- `astro.config.mjs` → `i18n` configured (`en` default, `es`, no default prefix).
+- `src/i18n/ui.ts` → string dictionary, **EN + ES already filled** for chrome.
+- `src/i18n/utils.ts` → `getLangFromUrl()`, `useTranslations(lang)`, `localizedPath()`.
+- Components read copy via the dictionary (see `NavBar.tsx`).
+- `src/components/LangToggle.tsx` → ready EN|ES switcher (not mounted yet).
+
+**To turn Spanish on:**
+1. Finish translating `ui.es` (chrome done) and translate content collections (add `es/` entries or a `lang` field).
+2. Create `src/pages/es/` mirrors of the routes you want localized (import the same components, pass `lang="es"`).
+3. Mount `<LangToggle lang={lang} path={rel} client:load />` in `NavBar`.
