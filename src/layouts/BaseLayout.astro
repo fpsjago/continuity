@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title?: string;
@@ -37,6 +38,7 @@ const org = {
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
     <meta name="generator" content={Astro.generator} />
     <script type="application/ld+json" set:html={JSON.stringify(org)} is:inline />
+    <ClientRouter />
   </head>
   <body class:list={['grain', 'edge-fades', bodyClass]}>
     <a href="#main" class="skip-link">Skip to content</a>
@@ -50,33 +52,51 @@ const org = {
       import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
       gsap.registerPlugin(ScrollTrigger);
-
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const coarse = window.matchMedia('(pointer: coarse)').matches;
+      document.documentElement.dataset.coarse = coarse ? 'true' : 'false';
 
-      if (!reduce) {
-        const lenis = new Lenis({
+      let lenis: any = null;
+      let rafCb: any = null;
+
+      function initMotion() {
+        if (reduce || lenis) return;
+        lenis = new Lenis({
           duration: 1.2,
           easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           smoothWheel: true,
         });
         (window as any).__lenis = lenis;
         lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        rafCb = (time: number) => lenis && lenis.raf(time * 1000);
+        gsap.ticker.add(rafCb);
         gsap.ticker.lagSmoothing(0);
+        const refresh = () => ScrollTrigger.refresh();
+        if ((document as any).fonts?.ready) (document as any).fonts.ready.then(refresh);
+        requestAnimationFrame(refresh);
       }
 
-      const refresh = () => ScrollTrigger.refresh();
-      if ((document as any).fonts?.ready) (document as any).fonts.ready.then(refresh);
-      window.addEventListener('load', refresh);
+      function destroyMotion() {
+        ScrollTrigger.getAll().forEach((t) => t.kill());
+        if (lenis) {
+          if (rafCb) gsap.ticker.remove(rafCb);
+          lenis.destroy();
+          lenis = null;
+          (window as any).__lenis = null;
+        }
+      }
+
+      // runs on first load AND after every view transition
+      document.addEventListener('astro:page-load', initMotion);
+      document.addEventListener('astro:before-swap', destroyMotion);
+
       let lastW = window.innerWidth;
       window.addEventListener('resize', () => {
         if (window.innerWidth !== lastW) {
           lastW = window.innerWidth;
-          refresh();
+          ScrollTrigger.refresh();
         }
       });
-      document.documentElement.dataset.coarse = coarse ? 'true' : 'false';
     </script>
   </body>
 </html>

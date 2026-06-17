@@ -20,33 +20,35 @@
   --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
-  --color-bg: #f2efe8;
+  --color-bg: #f4f1ea;
   --color-surface: #fbfaf6;
-  --color-ink: #1c1b18;
-  --color-primary: #e05a1e;   /* ember — live signal */
-  --color-accent: #b5642e;    /* oxidized copper — material */
-  --color-gold: #b08428;      /* certification stamps */
-  --color-text: #1c1b18;
-  --color-muted: #6e6a60;
-  --color-line: #d8d2c4;      /* hairline rules on paper */
+  --color-ink: #14223f;       /* MKI deep navy ink */
+  --color-primary: #cc0000;   /* MKI red — live signal */
+  --color-navy: #13315c;      /* MKI navy — secondary */
+  --color-accent: #13315c;    /* MKI navy accent */
+  --color-gold: #b08428;
+  --color-text: #14223f;
+  --color-muted: #5d6b82;
+  --color-line: #d9d4c8;
 }
 
 :root {
-  /* Blueprint (paper) — DEFAULT */
-  --bg: #f2efe8;
+  /* Blueprint (warm paper) — DEFAULT — MKI navy + red on paper */
+  --bg: #f4f1ea;
   --surface: #fbfaf6;
-  --ink: #1c1b18;
-  --primary: #e05a1e;
-  --accent: #b5642e;
+  --ink: #14223f;             /* deep MKI navy as ink */
+  --primary: #cc0000;         /* MKI red — the live signal */
+  --navy: #13315c;            /* MKI navy — secondary marks */
+  --accent: #13315c;
   --gold: #b08428;
-  --text: #1c1b18;
-  --muted: #6e6a60;
-  --line: #d8d2c4;
-  --line-strong: #b8b1a1;
-  --glow: 224 90 30;          /* ember rgb for glows */
-  --grid: 28 27 24;           /* blueprint grid line rgb (ink) */
-  --grid-alpha: 0.05;
-  --grain-alpha: 0.4;
+  --text: #14223f;
+  --muted: #5d6b82;
+  --line: #d9d4c8;
+  --line-strong: #b9b2a3;
+  --glow: 204 0 0;            /* red rgb for glows */
+  --grid: 20 34 63;           /* navy grid line rgb */
+  --grid-alpha: 0.06;
+  --grain-alpha: 0.38;
 
   /* easings (council: no bounce on layout; ease-out family) */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -60,18 +62,21 @@
 
 /* Equipment Room (dark) — counter register / optional skin */
 [data-skin="dark"] {
-  --bg: #0b0c0e;
-  --surface: #121417;
-  --ink: #ecedde;
-  --primary: #e05a1e;
-  --accent: #b5703c;
+  /* Equipment Room — MKI deep navy */
+  --bg: #08152e;
+  --surface: #0f2247;
+  --ink: #eef2f9;
+  --primary: #ff2a2a;         /* brighter red for dark ground */
+  --navy: #1d3e6e;
+  --accent: #9fb4d4;          /* silver-blue */
   --gold: #d4a853;
-  --text: #ecedee;
-  --muted: #8a9097;
+  --text: #eef2f9;
+  --muted: #8ea0bf;
   --line: rgba(255, 255, 255, 0.10);
-  --line-strong: rgba(255, 255, 255, 0.18);
+  --line-strong: rgba(255, 255, 255, 0.20);
+  --glow: 255 42 42;
   --grid: 255 255 255;
-  --grid-alpha: 0.045;
+  --grid-alpha: 0.05;
   --grain-alpha: 0.5;
 }
 
@@ -141,14 +146,14 @@ img, svg, video { display: block; max-width: 100%; }
 /* blueprint grid field */
 .blueprint-grid {
   background-image:
-    linear-gradient(rgba(var(--grid), var(--grid-alpha)) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(var(--grid), var(--grid-alpha)) 1px, transparent 1px);
+    linear-gradient(rgb(var(--grid) /var(--grid-alpha)) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--grid) /var(--grid-alpha)) 1px, transparent 1px);
   background-size: 64px 64px;
   -webkit-mask-image: radial-gradient(900px 600px at 60% 45%, #000, transparent 82%);
   mask-image: radial-gradient(900px 600px at 60% 45%, #000, transparent 82%);
 }
 .dot-grid {
-  background-image: radial-gradient(rgba(var(--grid), calc(var(--grid-alpha) * 1.6)) 1px, transparent 1px);
+  background-image: radial-gradient(rgb(var(--grid) /calc(var(--grid-alpha) * 1.6)) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 
@@ -156,15 +161,15 @@ img, svg, video { display: block; max-width: 100%; }
 .atmos-glow { position: relative; }
 .atmos-glow::before {
   content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background: radial-gradient(680px 420px at 80% 12%, rgba(var(--glow), 0.10), transparent 60%);
+  background: radial-gradient(680px 420px at 80% 12%, rgb(var(--glow) /0.10), transparent 60%);
 }
 .atmos-glow-center::before {
   content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background: radial-gradient(700px 460px at 50% 50%, rgba(var(--glow), 0.09), transparent 62%);
+  background: radial-gradient(700px 460px at 50% 50%, rgb(var(--glow) /0.09), transparent 62%);
 }
 .atmos-glow-top::before {
   content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background: radial-gradient(900px 420px at 50% -10%, rgba(var(--glow), 0.08), transparent 60%);
+  background: radial-gradient(900px 420px at 50% -10%, rgb(var(--glow) /0.08), transparent 60%);
 }
 
 /* floating drafting marks (2-3 per section, aria-hidden) */
@@ -179,17 +184,27 @@ img, svg, video { display: block; max-width: 100%; }
 .float-corner { position: absolute; width: 18px; height: 18px; border-left: 1px solid var(--accent); border-top: 1px solid var(--accent); opacity: 0.6; pointer-events: none; }
 
 /* oversized background typography (1 in 3 sections) */
-.bg-text {
+.bgtype {
   position: absolute; font-family: var(--font-heading); font-weight: 700; line-height: 0.8;
-  color: transparent; -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1px rgba(var(--grid), 0.09); pointer-events: none; z-index: 0;
+  color: rgb(var(--grid) / 0.05); pointer-events: none; z-index: 0;
   user-select: none; letter-spacing: -0.03em; white-space: nowrap;
 }
 
-/* clear the fixed SignalSpine rail on the home page (xl only) */
+/* clear the fixed SignalSpine rail on the home page (xl only) — MAIN only, never the nav */
 @media (min-width: 1280px) {
-  .rail-offset .container { padding-left: 168px; }
+  .rail-offset main .container { padding-left: 168px; }
 }
+
+/* buttons — real CSS classes (Tailwind arbitrary text-[#hex] proved unreliable) */
+.btn { display: inline-flex; align-items: center; gap: 9px; font-weight: 600; font-size: 0.92rem;
+  padding: 0.82rem 1.55rem; border-radius: 11px; cursor: pointer; line-height: 1;
+  transition: transform .2s var(--ease-out), filter .2s, background .2s, border-color .2s, color .2s; }
+.btn--signal { background: var(--primary); color: #fff; box-shadow: 0 12px 32px rgb(var(--glow) / 0.32); }
+.btn--signal:hover { filter: brightness(1.08); transform: translateY(-2px); box-shadow: 0 18px 42px rgb(var(--glow) / 0.42); }
+.btn--dark { background: var(--ink); color: var(--bg); }
+.btn--dark:hover { transform: translateY(-2px); filter: brightness(1.14); }
+.btn--ghost { border: 1px solid var(--line-strong); color: var(--text); background: transparent; }
+.btn--ghost:hover { border-color: var(--ink); background: rgb(var(--grid) / 0.04); }
 
 /* shimmer / hollow animated border (1-2 elements) */
 .shimmer-border { position: relative; }
@@ -209,10 +224,10 @@ img, svg, video { display: block; max-width: 100%; }
 
 /* the cable route stroke + scroll-driven pulse-head (per-section segments) */
 .signal-path { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
-.signal-path--live { stroke: var(--primary); filter: drop-shadow(0 0 6px rgba(var(--glow), 0.5)); }
+.signal-path--live { stroke: var(--primary); filter: drop-shadow(0 0 6px rgb(var(--glow) /0.5)); }
 .signal-trace { fill: none; stroke: var(--primary); stroke-width: 2; stroke-linecap: round;
-  filter: drop-shadow(0 0 5px rgba(var(--glow), 0.55)); }
-.pulse-head { fill: var(--primary); filter: drop-shadow(0 0 8px rgba(var(--glow), 0.9)); }
+  filter: drop-shadow(0 0 5px rgb(var(--glow) /0.55)); }
+.pulse-head { fill: var(--primary); filter: drop-shadow(0 0 8px rgb(var(--glow) /0.9)); }
 
 /* status token */
 .status-token {
@@ -221,7 +236,7 @@ img, svg, video { display: block; max-width: 100%; }
 }
 .status-token .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
 .status-token[data-state="live"] { color: var(--primary); }
-.status-token[data-state="live"] .dot { background: var(--primary); box-shadow: 0 0 10px rgba(var(--glow), 0.9); }
+.status-token[data-state="live"] .dot { background: var(--primary); box-shadow: 0 0 10px rgb(var(--glow) /0.9); }
 
 /* numbered callout balloon on a leader line */
 .callout { position: relative; font-family: var(--font-mono); }
@@ -268,7 +283,7 @@ img, svg, video { display: block; max-width: 100%; }
 /* warm-paper PDP prints as a clean datasheet */
 @media print {
   body { background: #fff; color: #000; }
-  .grain::before, .edge-fades::after, .atmos-glow::before, .signal-path, .pulse-head, .float-line, .float-cross, .float-ring, .bg-text { display: none !important; }
+  .grain::before, .edge-fades::after, .atmos-glow::before, .signal-path, .pulse-head, .float-line, .float-cross, .float-ring, .bgtype { display: none !important; }
   nav, .index-rail, .signal-layer { display: none !important; }
   a { color: #000; }
 }

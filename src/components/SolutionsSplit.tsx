@@ -52,7 +52,7 @@ export default function SolutionsSplit({ solutions }: { solutions: Sol[] }) {
 
   return (
     <section ref={root} id="solutions" className="relative py-28 atmos-glow-top overflow-hidden">
-      <div className="bg-text text-[clamp(5rem,15vw,13rem)] top-[2%] left-[-2%]" aria-hidden="true">SYSTEMS</div>
+      <div className="bgtype text-[clamp(5rem,15vw,13rem)] top-[2%] left-[-2%]" aria-hidden="true">SYSTEMS</div>
       <div className="container relative z-10">
         <header className="max-w-[40rem] mb-16">
           <span className="kicker block mb-4" data-reveal>Plate 03 · Solutions</span>

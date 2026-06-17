@@ -11,7 +11,7 @@ const { title, description } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
-  <NavBar slot="nav" client:load />
+  <NavBar slot="nav" client:load transition:persist="site-nav" />
   <div class="pt-[68px]"><slot /></div>
-  <FooterTitleBlock slot="footer" />
+  <FooterTitleBlock slot="footer" transition:persist="site-footer" />
 </BaseLayout>

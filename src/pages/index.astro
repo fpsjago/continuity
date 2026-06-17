@@ -9,6 +9,7 @@ import SolutionsSplit from '../components/SolutionsSplit.tsx';
 import ProductCrossSection from '../components/ProductCrossSection.tsx';
 import EquipmentRoom from '../components/EquipmentRoom.tsx';
 import Industries from '../components/Industries.tsx';
+import ProductRail from '../components/ProductRail.tsx';
 import CTAConnect from '../components/CTAConnect.tsx';
 import FooterTitleBlock from '../components/FooterTitleBlock.astro';
 
@@ -18,6 +19,11 @@ const solutions = (await getCollection('solutions'))
 
 const studies = (await getCollection('caseStudies')).sort((a, b) => a.data.order - b.data.order);
 const study = studies[0].data;
+
+const featured = (await getCollection('products'))
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((p) => ({ slug: p.id, name: p.data.name, sku: p.data.sku, category: p.data.category, tagline: p.data.tagline, specs: p.data.specs }));
 
 const nodes = [
   { id: 'signal', label: 'Signal' },
@@ -30,7 +36,7 @@ const nodes = [
 ---
 
 <BaseLayout bodyClass="rail-offset">
-  <NavBar slot="nav" client:load />
+  <NavBar slot="nav" client:load transition:persist="site-nav" />
   <SignalSpine nodes={nodes} client:load />
 
   <Hero client:load />
@@ -38,8 +44,9 @@ const nodes = [
   <SolutionsSplit solutions={solutions} client:visible />
   <ProductCrossSection client:visible />
   <EquipmentRoom study={study} client:visible />
+  <ProductRail products={featured} client:visible />
   <Industries client:visible />
   <CTAConnect client:visible />
 
-  <FooterTitleBlock slot="footer" />
+  <FooterTitleBlock slot="footer" transition:persist="site-footer" />
 </BaseLayout>

@@ -16,12 +16,12 @@ export default function Backbone() {
     const ports = root.current?.querySelectorAll<SVGRectElement>('[data-port]');
     if (!ports?.length) return;
     if (reduce) {
-      ports.forEach((p) => { p.setAttribute('fill', '#e05a1e'); p.setAttribute('stroke', '#e05a1e'); });
+      ports.forEach((p) => { p.setAttribute('fill', '#cc0000'); p.setAttribute('stroke', '#cc0000'); });
       return;
     }
     const ctx = gsap.context(() => {
       gsap.to(ports, {
-        attr: { fill: '#e05a1e', stroke: '#e05a1e' },
+        attr: { fill: '#cc0000', stroke: '#cc0000' },
         stagger: { each: 0.5, from: 'start' },
         ease: 'none',
         scrollTrigger: { trigger: root.current, start: 'top 70%', end: 'center 40%', scrub: true },
@@ -57,7 +57,7 @@ export default function Backbone() {
           <div data-reveal>
             <svg viewBox="0 0 520 150" className="w-full h-auto" role="img" aria-label="24-port managed switch, ports illuminating left to right">
               <rect x="6" y="20" width="508" height="110" rx="6" fill="#fbfaf6" stroke="var(--ink)" strokeWidth="1.8" />
-              <circle cx="30" cy="40" r="3" fill="#e05a1e" />
+              <circle cx="30" cy="40" r="3" fill="#cc0000" />
               <text x="46" y="44" className="font-[var(--font-mono)]" fontSize="9" fill="var(--muted)">CONTINUITY · SW-24-POE</text>
               {Array.from({ length: 24 }).map((_, i) => {
                 const col = i % 12;

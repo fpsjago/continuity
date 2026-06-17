@@ -46,7 +46,7 @@ export default function Hero() {
       className="relative min-h-screen flex items-center overflow-hidden atmos-glow-top pt-[88px] pb-16"
     >
       <div className="blueprint-grid absolute inset-0" aria-hidden="true" />
-      <div className="bg-text text-[clamp(7rem,26vw,24rem)] -bottom-[6%] -right-[3%]" aria-hidden="true">
+      <div className="bgtype text-[clamp(7rem,26vw,24rem)] -bottom-[6%] -right-[3%]" aria-hidden="true">
         OFC
       </div>
       {/* corner registration */}
@@ -77,16 +77,11 @@ export default function Hero() {
             <span className="text-[var(--ink)] font-medium"> Certified, not claimed.</span>
           </p>
           <div className="flex flex-wrap items-center gap-4 mt-9" data-h-fade>
-            <a
-              href={`${base}products`}
-              className="inline-flex items-center gap-2 bg-[#1c1b18] text-[#f4f1ea] font-semibold px-6 py-3.5 rounded-[10px] hover:-translate-y-0.5 transition-transform duration-200"
-            >
+            <a href={`${base}products`} className="btn btn--dark">
               Browse the index
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </a>
-            <a href={`${base}request`} className="inline-flex items-center gap-2 font-semibold px-6 py-3.5 rounded-[10px] border border-[var(--line-strong)] hover:border-[var(--ink)] transition-colors duration-200">
-              Request a spec sheet
-            </a>
+            <a href={`${base}request`} className="btn btn--ghost">Request a spec sheet</a>
           </div>
           <div className="mt-9 flex items-center gap-6" data-h-fade>
             <span className="status-token" data-state={live ? 'live' : 'idle'}>

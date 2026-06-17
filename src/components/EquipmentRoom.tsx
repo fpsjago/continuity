@@ -43,7 +43,7 @@ export default function EquipmentRoom({ study }: { study: CaseStudy }) {
       style={{ background: 'var(--bg)', color: 'var(--text)' }}
     >
       <div className="dot-grid absolute inset-0 opacity-50" aria-hidden="true" />
-      <div className="bg-text text-[clamp(6rem,18vw,16rem)] bottom-[-4%] right-[-2%]" aria-hidden="true">2AM</div>
+      <div className="bgtype text-[clamp(6rem,18vw,16rem)] bottom-[-4%] right-[-2%]" aria-hidden="true">2AM</div>
       {/* CCTV reticle */}
       <svg className="absolute top-16 right-[8%] w-40 h-40 opacity-70 hidden md:block" viewBox="0 0 120 120" aria-hidden="true">
         <g data-reticle stroke="var(--primary)" strokeWidth="1" fill="none">
