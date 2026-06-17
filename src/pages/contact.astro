@@ -1,0 +1,34 @@
+---
+import Page from '../layouts/Page.astro';
+import PageHeader from '../components/PageHeader.astro';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const rows = [
+  ['Sales & quotes', 'sales@continuity.example', 'Spec sheets, pricing, availability'],
+  ['Engineering', 'eng@continuity.example', 'Design support, test reports, standards'],
+  ['General', 'hello@continuity.example', 'Everything else'],
+];
+---
+
+<Page title="Contact — CONTINUITY" description="Talk to engineering. We answer with numbers.">
+  <PageHeader plate="Plate · Contact" title="Talk to engineering." intro="Tell us what the link has to do. We answer with numbers, a spec sheet, and a date." />
+  <section class="py-16 atmos-glow-top">
+    <div class="container grid lg:grid-cols-[1.2fr_0.8fr] gap-14">
+      <div>
+        <div class="border-t border-[var(--line-strong)]">
+          {rows.map(([h, e, n], i) => (
+            <div class="grid sm:grid-cols-[1fr_1.4fr] gap-2 py-7 border-b border-[var(--line)]">
+              <div class="flex items-baseline gap-3"><span class="mono text-[0.62rem] text-[var(--primary)]">{String(i + 1).padStart(2, '0')}</span><h3 class="text-[1.2rem]">{h}</h3></div>
+              <div><a href={`mailto:${e}`} class="font-[var(--font-mono)] text-[0.92rem] text-[var(--ink)] hover:text-[var(--primary)]">{e}</a><p class="text-[var(--muted)] text-[0.86rem] mt-1">{n}</p></div>
+            </div>
+          ))}
+        </div>
+        <div class="caliper mt-10 max-w-[30rem]"><span class="caliper__label">MON–FRI</span><div class="caliper__rule"></div><span class="caliper__label">08:00–17:00</span></div>
+      </div>
+      <aside class="border border-[var(--line-strong)] rounded-[14px] p-7 bg-[var(--surface)] self-start">
+        <h3 class="text-[1.4rem]">Prefer a spec sheet?</h3>
+        <p class="text-[var(--text)]/75 text-[0.92rem] mt-2">Send the part or system you need and we will return a stamped sheet with a quote.</p>
+        <a href={`${base}request`} class="mt-6 inline-flex w-full justify-center bg-[var(--primary)] text-white font-semibold px-6 py-3.5 rounded-[10px] hover:-translate-y-0.5 transition-transform">Request spec sheet</a>
+      </aside>
+    </div>
+  </section>
+</Page>

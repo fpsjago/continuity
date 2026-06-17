@@ -1,0 +1,22 @@
+---
+import Page from '../layouts/Page.astro';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<Page title="Link Down — CONTINUITY" description="No continuity on this path.">
+  <section class="relative min-h-[78vh] flex items-center atmos-glow-center overflow-hidden">
+    <div class="blueprint-grid absolute inset-0 opacity-50" aria-hidden="true"></div>
+    <div class="container relative z-10 text-center">
+      <span class="kicker block mb-5">Plate · Fault</span>
+      <h1 class="text-[clamp(4rem,16vw,12rem)] leading-[0.85]">404</h1>
+      <svg viewBox="0 0 400 40" class="w-full max-w-[420px] mx-auto my-6" aria-hidden="true">
+        <line x1="0" y1="20" x2="170" y2="20" stroke="var(--ink)" stroke-width="2" />
+        <path d="M170 20 l10 -12 8 24 8 -24 8 12" fill="none" stroke="var(--primary)" stroke-width="2" />
+        <line x1="204" y1="20" x2="220" y2="20" stroke="var(--primary)" stroke-width="2" stroke-dasharray="2 6" />
+        <line x1="230" y1="20" x2="400" y2="20" stroke="var(--line-strong)" stroke-width="2" stroke-dasharray="3 5" />
+      </svg>
+      <p class="status-token justify-center mb-8"><span class="dot"></span> LINK DOWN · NO CONTINUITY ON THIS PATH</p>
+      <a href={base} class="inline-flex items-center gap-2 bg-[var(--primary)] text-white font-semibold px-7 py-3.5 rounded-[10px] hover:-translate-y-0.5 transition-transform">Re-establish link →</a>
+    </div>
+  </section>
+</Page>

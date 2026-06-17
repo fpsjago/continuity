@@ -1,0 +1,18 @@
+---
+interface Props {
+  plate: string;
+  title: string;
+  intro?: string;
+}
+const { plate, title, intro } = Astro.props;
+---
+<section class="relative pt-20 pb-16 atmos-glow-top overflow-hidden border-b border-[var(--line)]">
+  <div class="blueprint-grid absolute inset-0 opacity-50" aria-hidden="true"></div>
+  <span class="float-corner left-6 top-24" aria-hidden="true"></span>
+  <span class="float-cross right-[10%] top-[40%]" aria-hidden="true"></span>
+  <div class="container relative z-10">
+    <span class="kicker block mb-4">{plate}</span>
+    <h1 class="text-[clamp(2.4rem,6vw,4.8rem)] max-w-[16ch] leading-[0.98]" set:html={title}></h1>
+    {intro && <p class="mt-6 max-w-[46rem] text-[var(--text)]/80 text-[1.05rem] leading-relaxed">{intro}</p>}
+  </div>
+</section>

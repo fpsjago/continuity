@@ -1,0 +1,17 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import NavBar from '../components/NavBar.tsx';
+import FooterTitleBlock from '../components/FooterTitleBlock.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title, description } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <NavBar slot="nav" client:load />
+  <div class="pt-[68px]"><slot /></div>
+  <FooterTitleBlock slot="footer" />
+</BaseLayout>

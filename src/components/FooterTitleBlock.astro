@@ -1,0 +1,64 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const cols = [
+  { h: 'Solutions', links: [['Structured Cabling', `${base}solutions/structured-cabling`], ['Fiber & Backbone', `${base}solutions/fiber-backbone`], ['Surveillance', `${base}solutions/surveillance`], ['Access Control', `${base}solutions/access-control`]] },
+  { h: 'Company', links: [['About', `${base}about`], ['Case Studies', `${base}case-studies`], ['Insights', `${base}insights`], ['Contact', `${base}contact`]] },
+  { h: 'Index', links: [['Products', `${base}products`], ['Request Spec Sheet', `${base}request`], ['Components', `${base}style-guide`]] },
+];
+const block = [
+  ['DRAWN BY', 'Continuity'],
+  ['SCALE', '1:3'],
+  ['MATERIAL', 'OFC'],
+  ['SHEET', '01 OF 18'],
+  ['REV', 'C'],
+  ['STANDARD', 'IEC 11801'],
+];
+const stamps = ['UL', 'FCC', 'RoHS', 'IEC'];
+---
+<footer class="relative border-t border-[var(--line-strong)] pt-16 pb-10 overflow-hidden">
+  <div class="container">
+    <div class="grid lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10 mb-14">
+      <div>
+        <div class="flex items-baseline gap-2 mb-4">
+          <span class="font-[var(--font-heading)] text-[1.4rem] font-bold tracking-[-0.03em]">CONTINUITY</span>
+          <span class="mono text-[0.6rem] text-[var(--accent)]">/ INF·IDX</span>
+        </div>
+        <p class="text-[var(--text)]/75 max-w-[26rem] text-[0.92rem]">
+          Network infrastructure and security hardware, engineered to spec and tested end to end.
+          Certified, not claimed.
+        </p>
+        <div class="flex gap-3 mt-6">
+          {stamps.map((s) => (
+            <span class="mono text-[0.6rem] border border-[var(--line-strong)] text-[var(--muted)] rounded px-2.5 py-1">{s}</span>
+          ))}
+        </div>
+        <p class="mono text-[0.56rem] text-[var(--muted)] mt-3">Certification marks shown are sample placeholders.</p>
+      </div>
+      {cols.map((c) => (
+        <nav aria-label={c.h}>
+          <h4 class="mono text-[0.66rem] tracking-[0.14em] text-[var(--ink)] mb-4">{c.h.toUpperCase()}</h4>
+          <ul class="space-y-2.5">
+            {c.links.map(([label, href]) => (
+              <li><a href={href} class="text-[0.88rem] text-[var(--muted)] hover:text-[var(--ink)] transition-colors">{label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      ))}
+    </div>
+
+    <!-- engineering title block -->
+    <div class="titleblock grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 border-l border-b border-[var(--line-strong)]">
+      {block.map(([k, v]) => (
+        <div class="titleblock__cell">
+          <div class="titleblock__k">{k}</div>
+          <div class="titleblock__v">{v}</div>
+        </div>
+      ))}
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-4 mt-8 pt-6 border-t border-[var(--line)]">
+      <p class="mono text-[0.62rem] text-[var(--muted)]">© 2026 CONTINUITY · A premium template by Fullstack Evolved LLC</p>
+      <p class="mono text-[0.62rem] text-[var(--muted)]">Template by jagoFps → jagofps.dev</p>
+    </div>
+  </div>
+</footer>

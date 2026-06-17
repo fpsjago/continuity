@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from 'astro:content';
+import Page from '../../layouts/Page.astro';
+import PageHeader from '../../components/PageHeader.astro';
+
+export async function getStaticPaths() {
+  const studies = await getCollection('caseStudies');
+  return studies.map((s) => ({ params: { slug: s.id }, props: { s } }));
+}
+const { s } = Astro.props;
+const d = s.data;
+const { Content } = await render(s);
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<Page title={`${d.client} — Field Report — CONTINUITY`} description={d.challenge}>
+  <PageHeader plate={`Field Report · ${d.industry}`} title={d.client} intro={d.challenge} />
+  <section class="py-16 atmos-glow">
+    <div class="container">
+      <div class="grid grid-cols-3 gap-6 border-y border-[var(--line)] py-8 mb-12 max-w-[40rem]">
+        {d.metrics.map((m) => (
+          <div><div class="font-[var(--font-heading)] text-[clamp(1.8rem,3.4vw,2.8rem)] font-bold text-[var(--primary)]">{m.value}</div><div class="mono text-[0.6rem] text-[var(--muted)] mt-1">{m.label}</div></div>
+        ))}
+      </div>
+      <div class="grid lg:grid-cols-[1fr_1fr] gap-12">
+        <div>
+          <h2 class="font-[var(--font-mono)] text-[0.72rem] tracking-[0.16em] uppercase text-[var(--accent)] mb-3">Outcome</h2>
+          <p class="text-[1.1rem] leading-relaxed text-[var(--text)]/85">{d.outcome}</p>
+        </div>
+        <div class="prose-body text-[1.02rem] leading-relaxed text-[var(--text)]/80 space-y-4">
+          <Content />
+        </div>
+      </div>
+      <a href={`${base}case-studies`} class="mono text-[0.66rem] text-[var(--muted)] hover:text-[var(--ink)] mt-12 inline-block">← ALL FIELD REPORTS</a>
+    </div>
+  </section>
+</Page>

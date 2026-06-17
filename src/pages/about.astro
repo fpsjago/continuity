@@ -1,0 +1,47 @@
+---
+import Page from '../layouts/Page.astro';
+import PageHeader from '../components/PageHeader.astro';
+
+const stats = [
+  ['+15', 'Years in the field'],
+  ['+200', 'Products indexed'],
+  ['100%', 'Channels certified'],
+  ['0', 'Numbers we invent'],
+];
+const principles = [
+  ['Measure before you speak', 'Every claim on this site maps to a test result or a published standard. If we cannot test it, we do not print it.'],
+  ['The conductor, not the jacket', 'We specify to the part that carries the signal. Marketing-grade cable is not a category we stock.'],
+  ['The report is the deliverable', 'You receive the as-built channel test, the OTDR trace, the loss budget. Hardware is half the job; documentation is the other half.'],
+];
+const block = [['DRAWN BY', 'Continuity'], ['DISCIPLINE', 'Infrastructure'], ['STANDARD', 'IEC 11801'], ['REGION', 'Global'], ['EST.', '2011'], ['REV', 'C']];
+---
+
+<Page title="About — CONTINUITY" description="An infrastructure house that measures before it speaks. Certified, not claimed.">
+  <PageHeader plate="Plate 00 · About" title={'We measure<br/>before we speak.'} intro="CONTINUITY is an infrastructure and security-hardware house. We design, supply and test the path a signal travels, then hand you the proof." />
+
+  <section class="py-16 atmos-glow">
+    <div class="container">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 border-y border-[var(--line)] py-10 mb-16">
+        {stats.map(([v, l]) => (
+          <div><div class="font-[var(--font-heading)] text-[clamp(2rem,4vw,3.2rem)] font-bold text-[var(--primary)]">{v}</div><div class="mono text-[0.62rem] text-[var(--muted)] mt-1">{l}</div></div>
+        ))}
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-10">
+        {principles.map(([h, p], i) => (
+          <div>
+            <span class="callout__no mb-5 inline-flex">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="text-[1.5rem] mt-4">{h}</h3>
+            <p class="mt-3 text-[var(--text)]/80">{p}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="titleblock grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 border-l mt-16 max-w-[60rem]">
+        {block.map(([k, v]) => (
+          <div class="titleblock__cell"><div class="titleblock__k">{k}</div><div class="titleblock__v">{v}</div></div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Page>

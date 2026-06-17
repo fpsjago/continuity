@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '../../layouts/Page.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import ProductCard from '../../components/ProductCard.tsx';
+
+const products = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);
+const cats = [...new Set(products.map((p) => p.data.category))];
+---
+
+<Page title="Products — CONTINUITY" description="The CONTINUITY product index: cabling, connectors, fiber, switching, surveillance and access hardware, each with a full spec sheet.">
+  <PageHeader
+    plate="Index · Products"
+    title="The product index."
+    intro="Every line is specified to a standard and tested as a channel. Browse by system, or open a plate for the full spec sheet."
+  />
+  <section class="py-20 atmos-glow overflow-hidden">
+    <div class="bg-text text-[clamp(5rem,15vw,13rem)] top-[4%] right-[-2%]" aria-hidden="true">INDEX</div>
+    <div class="container relative z-10">
+      <div class="flex flex-wrap gap-2 mb-10">
+        <span class="mono text-[0.66rem] border border-[var(--ink)] rounded-full px-3.5 py-1.5">ALL · {products.length}</span>
+        {cats.map((c) => (
+          <span class="mono text-[0.66rem] border border-[var(--line-strong)] text-[var(--muted)] rounded-full px-3.5 py-1.5">{c}</span>
+        ))}
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {products.map((p) => (
+          <ProductCard slug={p.id} name={p.data.name} sku={p.data.sku} category={p.data.category} tagline={p.data.tagline} specs={p.data.specs} />
+        ))}
+      </div>
+    </div>
+  </section>
+</Page>

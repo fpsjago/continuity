@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '../../layouts/Page.astro';
+import PageHeader from '../../components/PageHeader.astro';
+
+const solutions = (await getCollection('solutions')).sort((a, b) => a.data.order - b.data.order);
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<Page title="Solutions — CONTINUITY" description="Structured cabling, fiber backbone, surveillance and access control — four systems, one signal path.">
+  <PageHeader
+    plate="Index · Solutions"
+    title={'Four systems,<br/>one signal path.'}
+    intro="Designed, supplied and tested by the same hands that hand you the report. Open a plate for capabilities and related products."
+  />
+  <section class="py-16 atmos-glow-top">
+    <div class="container">
+      <div class="flex flex-col gap-px bg-[var(--line)] border-y border-[var(--line)]">
+        {solutions.map((s, i) => (
+          <a href={`${base}solutions/${s.id}`} class="group bg-[var(--bg)] grid md:grid-cols-[auto_1fr_auto] gap-6 items-center px-2 md:px-6 py-9 hover:bg-[var(--surface)] transition-colors duration-300">
+            <span class="callout__no">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <div class="flex items-baseline gap-4 flex-wrap">
+                <h2 class="text-[clamp(1.5rem,3vw,2.4rem)]">{s.data.title}</h2>
+                <span class="mono text-[0.62rem] text-[var(--accent)]">{s.data.plate}</span>
+              </div>
+              <p class="mt-2 max-w-[44rem] text-[var(--text)]/80">{s.data.summary}</p>
+              <ul class="mt-3 flex flex-wrap gap-x-5 gap-y-1">
+                {s.data.capabilities.map((c) => (
+                  <li class="font-[var(--font-mono)] text-[0.7rem] text-[var(--muted)] flex items-center gap-1.5"><span class="text-[var(--primary)]">+</span> {c}</li>
+                ))}
+              </ul>
+            </div>
+            <span class="text-[var(--accent)] text-2xl group-hover:translate-x-1 transition-transform">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Page>

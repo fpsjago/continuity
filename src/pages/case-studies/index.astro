@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '../../layouts/Page.astro';
+import PageHeader from '../../components/PageHeader.astro';
+
+const studies = (await getCollection('caseStudies')).sort((a, b) => a.data.order - b.data.order);
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<Page title="Case Studies — CONTINUITY" description="Field reports: documented infrastructure delivered to spec, on schedule.">
+  <PageHeader plate="Index · Field Reports" title="The work, documented." intro="No logo wall. Real projects, real numbers, signed off and handed over." />
+  <section class="py-16 atmos-glow-top">
+    <div class="container grid md:grid-cols-2 gap-6">
+      {studies.map((s, i) => (
+        <a href={`${base}case-studies/${s.id}`} class="group border border-[var(--line)] rounded-[16px] p-8 bg-[var(--surface)] hover:border-[var(--accent)] hover:-translate-y-1 transition-[transform,border-color] duration-300 flex flex-col">
+          <div class="flex items-center justify-between mb-5">
+            <span class="mono text-[0.62rem] text-[var(--accent)]">FIELD {String(i + 1).padStart(2, '0')}</span>
+            <span class="mono text-[0.62rem] text-[var(--muted)]">{s.data.industry}</span>
+          </div>
+          <h2 class="text-[1.6rem] leading-tight">{s.data.client}</h2>
+          <p class="mt-3 text-[var(--text)]/80 text-[0.95rem] flex-1">{s.data.challenge}</p>
+          <div class="mt-6 pt-5 border-t border-[var(--line)] grid grid-cols-3 gap-3">
+            {s.data.metrics.map((m) => (
+              <div><div class="font-[var(--font-heading)] text-[1.4rem] font-bold text-[var(--primary)]">{m.value}</div><div class="mono text-[0.56rem] text-[var(--muted)]">{m.label}</div></div>
+            ))}
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Page>

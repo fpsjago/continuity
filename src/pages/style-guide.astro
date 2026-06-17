@@ -1,0 +1,57 @@
+---
+import Page from '../layouts/Page.astro';
+import PageHeader from '../components/PageHeader.astro';
+const swatches = [
+  ['--bg', '#F2EFE8', 'Paper'],
+  ['--surface', '#FBFAF6', 'Surface'],
+  ['--ink', '#1C1B18', 'Ink'],
+  ['--primary', '#E05A1E', 'Ember'],
+  ['--accent', '#B5642E', 'Copper'],
+  ['--gold', '#B08428', 'Gold'],
+];
+const type = [
+  ['Display / Bricolage', 'text-[3rem] font-[var(--font-heading)] font-bold', 'Signal integrity'],
+  ['Heading / Bricolage', 'text-[1.6rem] font-[var(--font-heading)] font-semibold', 'Certified, not claimed'],
+  ['Body / IBM Plex Sans', 'text-[1rem]', 'Tested to 10 Gbps over 100 metres of channel.'],
+  ['Mono / IBM Plex Mono', 'mono text-[0.8rem]', '23 AWG · 99.99% OFC · 8.6 Ω/100m'],
+];
+---
+
+<Page title="Style Guide — CONTINUITY" description="Design tokens and components for the CONTINUITY template.">
+  <PageHeader plate="Reference · Components" title="The system." intro="Tokens, type scale and primitives that drive every page. Two skins: Blueprint (paper) and Equipment Room (dark)." />
+  <section class="py-16 atmos-glow space-y-16">
+    <div class="container">
+      <h2 class="kicker mb-6">Palette · Blueprint</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        {swatches.map(([v, hex, name]) => (
+          <div class="border border-[var(--line)] rounded-[10px] overflow-hidden">
+            <div class="h-20" style={`background:${hex}`}></div>
+            <div class="p-3"><div class="text-[0.85rem] font-semibold">{name}</div><div class="mono text-[0.6rem] text-[var(--muted)]">{hex}</div></div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="container">
+      <h2 class="kicker mb-6">Typography</h2>
+      <div class="border-t border-[var(--line)]">
+        {type.map(([label, cls, sample]) => (
+          <div class="grid sm:grid-cols-[200px_1fr] gap-4 py-6 border-b border-[var(--line)] items-baseline">
+            <span class="mono text-[0.62rem] text-[var(--muted)]">{label}</span>
+            <span class={cls}>{sample}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="container">
+      <h2 class="kicker mb-6">Primitives</h2>
+      <div class="grid sm:grid-cols-3 gap-6">
+        <div class="relative h-40 rounded-[12px] border border-[var(--line)] atmos-glow flex items-center justify-center"><span class="mono text-[0.66rem]">atmos-glow</span></div>
+        <div class="relative h-40 rounded-[12px] border border-[var(--line)] blueprint-grid flex items-center justify-center"><span class="mono text-[0.66rem]">blueprint-grid</span></div>
+        <div class="relative h-40 rounded-[12px] border border-[var(--line)] flex items-center justify-center"><span class="float-cross left-6 top-6"></span><span class="float-corner right-6 bottom-6"></span><span class="mono text-[0.66rem]">float marks</span></div>
+      </div>
+      <div class="caliper mt-8 max-w-[28rem]"><span class="caliper__label">CALIPER</span><div class="caliper__rule"></div><span class="caliper__label">RULE</span></div>
+    </div>
+  </section>
+</Page>

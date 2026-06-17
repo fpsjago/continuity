@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NavBar from '../components/NavBar.tsx';
+import SignalSpine from '../components/SignalSpine.tsx';
+import Hero from '../components/Hero.tsx';
+import Backbone from '../components/Backbone.tsx';
+import SolutionsSplit from '../components/SolutionsSplit.tsx';
+import ProductCrossSection from '../components/ProductCrossSection.tsx';
+import EquipmentRoom from '../components/EquipmentRoom.tsx';
+import Industries from '../components/Industries.tsx';
+import CTAConnect from '../components/CTAConnect.tsx';
+import FooterTitleBlock from '../components/FooterTitleBlock.astro';
+
+const solutions = (await getCollection('solutions'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((s) => ({ slug: s.id, title: s.data.title, plate: s.data.plate, summary: s.data.summary, capabilities: s.data.capabilities }));
+
+const studies = (await getCollection('caseStudies')).sort((a, b) => a.data.order - b.data.order);
+const study = studies[0].data;
+
+const nodes = [
+  { id: 'signal', label: 'Signal' },
+  { id: 'backbone', label: 'Backbone' },
+  { id: 'solutions', label: 'Systems' },
+  { id: 'specimen', label: 'Specimen' },
+  { id: 'field', label: 'Field' },
+  { id: 'connect', label: 'Connect' },
+];
+---
+
+<BaseLayout bodyClass="rail-offset">
+  <NavBar slot="nav" client:load />
+  <SignalSpine nodes={nodes} client:load />
+
+  <Hero client:load />
+  <Backbone client:visible />
+  <SolutionsSplit solutions={solutions} client:visible />
+  <ProductCrossSection client:visible />
+  <EquipmentRoom study={study} client:visible />
+  <Industries client:visible />
+  <CTAConnect client:visible />
+
+  <FooterTitleBlock slot="footer" />
+</BaseLayout>

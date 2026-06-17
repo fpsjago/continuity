@@ -1,0 +1,82 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  skin?: 'light' | 'dark';
+  bodyClass?: string;
+}
+const {
+  title = 'CONTINUITY — Network Infrastructure & Security Hardware',
+  description = 'Structured cabling, fiber, connectors, racks, managed switches, CCTV and access control. Tested to 10 Gbps over 100m. Certified, not claimed.',
+  skin = 'light',
+  bodyClass = '',
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const org = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Continuity',
+  description,
+  url: Astro.site?.href,
+};
+---
+
+<!doctype html>
+<html lang="en" data-skin={skin === 'dark' ? 'dark' : undefined}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    <meta name="generator" content={Astro.generator} />
+    <script type="application/ld+json" set:html={JSON.stringify(org)} is:inline />
+  </head>
+  <body class:list={['grain', 'edge-fades', bodyClass]}>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <slot name="nav" />
+    <main id="main"><slot /></main>
+    <slot name="footer" />
+
+    <script>
+      import Lenis from 'lenis';
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const coarse = window.matchMedia('(pointer: coarse)').matches;
+
+      if (!reduce) {
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+        });
+        (window as any).__lenis = lenis;
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+      }
+
+      const refresh = () => ScrollTrigger.refresh();
+      if ((document as any).fonts?.ready) (document as any).fonts.ready.then(refresh);
+      window.addEventListener('load', refresh);
+      let lastW = window.innerWidth;
+      window.addEventListener('resize', () => {
+        if (window.innerWidth !== lastW) {
+          lastW = window.innerWidth;
+          refresh();
+        }
+      });
+      document.documentElement.dataset.coarse = coarse ? 'true' : 'false';
+    </script>
+  </body>
+</html>

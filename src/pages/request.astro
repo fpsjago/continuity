@@ -1,0 +1,23 @@
+---
+import Page from '../layouts/Page.astro';
+import PageHeader from '../components/PageHeader.astro';
+import RequestForm from '../components/RequestForm.tsx';
+---
+
+<Page title="Request a Spec Sheet — CONTINUITY" description="Tell us what the link has to do. We answer with a stamped spec sheet and a quote.">
+  <PageHeader plate="Plate · Request" title="Request a spec sheet." intro="Tell us the part or the system and what it has to carry. You get a stamped sheet and a quote, not a brochure." />
+  <section class="py-16 atmos-glow">
+    <div class="container grid lg:grid-cols-[1.1fr_0.9fr] gap-14 items-start">
+      <RequestForm client:load />
+      <aside class="border-l border-[var(--line)] pl-8 hidden lg:block">
+        <h3 class="font-[var(--font-mono)] text-[0.72rem] tracking-[0.14em] uppercase text-[var(--accent)] mb-4">What you get back</h3>
+        <ul class="space-y-4">
+          {['A stamped spec sheet (PDF-ready)', 'Defensible figures tied to a standard', 'Lead time and pricing', 'An engineer on the thread, not a bot'].map((t) => (
+            <li class="flex items-start gap-3 text-[0.95rem]"><span class="text-[var(--primary)] font-bold">+</span>{t}</li>
+          ))}
+        </ul>
+        <p class="status-token mt-8" data-state="live"><span class="dot"></span> AVG REPLY · &lt; 1 BUSINESS DAY</p>
+      </aside>
+    </div>
+  </section>
+</Page>

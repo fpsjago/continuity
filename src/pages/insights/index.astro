@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '../../layouts/Page.astro';
+import PageHeader from '../../components/PageHeader.astro';
+
+const posts = (await getCollection('insights')).sort((a, b) => +b.data.date - +a.data.date);
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+---
+
+<Page title="Insights — CONTINUITY" description="Field notes from the people who measure before they speak.">
+  <PageHeader plate="Index · Insights" title="Field notes." intro="What we have learned with a tester in hand. No thought-leadership, just method." />
+  <section class="py-16 atmos-glow-top">
+    <div class="container border-t border-[var(--line)]">
+      {posts.map((post, i) => (
+        <a href={`${base}insights/${post.id}`} class="group grid md:grid-cols-[auto_1fr_auto] gap-6 items-baseline py-8 border-b border-[var(--line)] hover:px-3 transition-[padding] duration-300">
+          <span class="mono text-[0.66rem] text-[var(--primary)]">{String(i + 1).padStart(2, '0')}</span>
+          <div>
+            <h2 class="text-[clamp(1.4rem,2.6vw,2rem)] leading-tight">{post.data.title}</h2>
+            <p class="mt-2 max-w-[46rem] text-[var(--text)]/75 text-[0.95rem]">{post.data.excerpt}</p>
+          </div>
+          <span class="mono text-[0.62rem] text-[var(--muted)] whitespace-nowrap">{fmt(post.data.date)}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</Page>
