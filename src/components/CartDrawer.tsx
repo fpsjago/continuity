@@ -22,26 +22,18 @@ export default function CartDrawer() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    const onOpen = () => setOpen(true);
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    window.addEventListener('cart:open', onOpen);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('cart:open', onOpen);
+    };
   }, []);
 
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        aria-label={`Open cart (${n} items)`}
-        className="fixed bottom-6 right-6 z-[150] inline-flex items-center gap-2.5 bg-[var(--primary)] text-white font-semibold text-[0.9rem] pl-4 pr-5 py-3.5 rounded-full shadow-[0_14px_36px_-8px_rgba(204,0,0,0.6)] hover:-translate-y-0.5 transition-transform"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
-          <path d="M3 4h2l2.4 12.4a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.8L21 8H6" strokeLinecap="round" strokeLinejoin="round" />
-          <circle cx="9" cy="20" r="1.4" fill="currentColor" stroke="none" /><circle cx="18" cy="20" r="1.4" fill="currentColor" stroke="none" />
-        </svg>
-        Cart
-        {n > 0 && (
-          <span className="ml-0.5 min-w-[22px] h-[22px] grid place-items-center rounded-full bg-white text-[var(--primary)] text-[0.72rem] font-bold px-1.5">{n}</span>
-        )}
-      </button>
+      {/* opened from the nav cart button (dispatches 'cart:open') */}
 
       {/* backdrop */}
       <div

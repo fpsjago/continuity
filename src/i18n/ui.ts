@@ -8,6 +8,8 @@ export const defaultLang = 'en';
 
 export const ui = {
   en: {
+    'nav.home': 'Home',
+    'nav.cart': 'Cart',
     'nav.catalog': 'Catalog',
     'nav.solutions': 'Solutions',
     'nav.cases': 'Case Studies',
@@ -35,6 +37,8 @@ export const ui = {
     'common.allFieldReports': 'All field reports',
   },
   es: {
+    'nav.home': 'Inicio',
+    'nav.cart': 'Carrito',
     'nav.catalog': 'Catálogo',
     'nav.solutions': 'Soluciones',
     'nav.cases': 'Casos de Éxito',
