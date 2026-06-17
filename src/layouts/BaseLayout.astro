@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
+import CartDrawer from '../components/CartDrawer.tsx';
 
 interface Props {
   title?: string;
@@ -45,6 +46,7 @@ const org = {
     <slot name="nav" />
     <main id="main"><slot /></main>
     <slot name="footer" />
+    <CartDrawer client:load transition:persist="quote-cart" />
 
     <script>
       import Lenis from 'lenis';

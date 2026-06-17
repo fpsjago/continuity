@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Page from '../../layouts/Page.astro';
+import QuotePanel from '../../components/QuotePanel.tsx';
 
 export async function getStaticPaths() {
   const products = await getCollection('products');
@@ -60,10 +61,9 @@ const block = [
       <aside class="lg:sticky lg:top-24">
         <div class="border border-[var(--line-strong)] rounded-[14px] p-7 bg-[var(--surface)] shimmer-border">
           <span class="status-token" data-state="live"><span class="dot"></span> IN STOCK · CERTIFIED</span>
-          <h3 class="text-[1.5rem] mt-4">Need this on a project?</h3>
-          <p class="text-[var(--text)]/75 text-[0.92rem] mt-2">Request a stamped spec sheet and a quote. We answer with numbers, not brochures.</p>
-          <a href={`${base}request`} class="mt-6 inline-flex w-full justify-center items-center gap-2 bg-[var(--primary)] text-white font-semibold px-6 py-3.5 rounded-[10px] hover:-translate-y-0.5 transition-transform">Request spec sheet</a>
-          <a href={`${base}contact`} class="mt-3 inline-flex w-full justify-center items-center gap-2 font-semibold px-6 py-3.5 rounded-[10px] border border-[var(--line-strong)] hover:border-[var(--ink)] transition-colors">Talk to engineering</a>
+          <h3 class="text-[1.5rem] mt-4 mb-1">Add to your quote</h3>
+          <p class="text-[var(--text)]/75 text-[0.9rem] mb-5">No checkout, no payment — build a list and request pricing on WhatsApp.</p>
+          <QuotePanel slug={p.id} name={d.name} sku={d.sku} client:visible />
         </div>
       </aside>
     </div>
