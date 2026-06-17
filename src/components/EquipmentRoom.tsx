@@ -13,7 +13,7 @@ interface CaseStudy {
   metrics: { value: string; label: string }[];
 }
 
-export default function EquipmentRoom({ study }: { study: CaseStudy }) {
+export default function EquipmentRoom({ study, bgImg }: { study: CaseStudy; bgImg?: string }) {
   const root = useRef<HTMLElement>(null);
   useReveal(root);
 
@@ -42,7 +42,13 @@ export default function EquipmentRoom({ study }: { study: CaseStudy }) {
       className="relative py-32 overflow-hidden atmos-glow"
       style={{ background: 'var(--bg)', color: 'var(--text)' }}
     >
-      <div className="dot-grid absolute inset-0 opacity-50" aria-hidden="true" />
+      {bgImg && (
+        <>
+          <img src={bgImg} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover opacity-[0.28]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#08152e] via-[#08152e]/85 to-[#08152e]/60" aria-hidden="true" />
+        </>
+      )}
+      <div className="dot-grid absolute inset-0 opacity-40" aria-hidden="true" />
       <div className="bgtype text-[clamp(6rem,18vw,16rem)] bottom-[-4%] right-[-2%]" aria-hidden="true">2AM</div>
       {/* CCTV reticle */}
       <svg className="absolute top-16 right-[8%] w-40 h-40 opacity-70 hidden md:block" viewBox="0 0 120 120" aria-hidden="true">

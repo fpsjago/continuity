@@ -1,5 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
+import datacenterImg from '../assets/img/datacenter.jpg';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NavBar from '../components/NavBar.tsx';
 import SignalSpine from '../components/SignalSpine.tsx';
@@ -19,6 +21,8 @@ const solutions = (await getCollection('solutions'))
 
 const studies = (await getCollection('caseStudies')).sort((a, b) => a.data.order - b.data.order);
 const study = studies[0].data;
+
+const dcBg = await getImage({ src: datacenterImg, format: 'webp', width: 1600 });
 
 const featured = (await getCollection('products'))
   .filter((p) => p.data.featured)
@@ -43,7 +47,7 @@ const nodes = [
   <Backbone client:visible />
   <SolutionsSplit solutions={solutions} client:visible />
   <ProductCrossSection client:visible />
-  <EquipmentRoom study={study} client:visible />
+  <EquipmentRoom study={study} bgImg={dcBg.src} client:visible />
   <ProductRail products={featured} client:visible />
   <Industries client:visible />
   <CTAConnect client:visible />

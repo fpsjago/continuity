@@ -3,6 +3,7 @@ client: Meridian Data Campus
 industry: Data Center
 challenge: A 14-rack expansion needed a backbone certified for 25G-ready uplinks with documented loss budgets before tenant move-in.
 outcome: OS2 backbone fusion-spliced and OTDR-traced bidirectionally; every channel handed over with a signed test report two days ahead of schedule.
+image: ../../assets/img/datacenter.jpg
 order: 1
 metrics:
   - { value: "0.18 dB", label: "Avg splice loss" }

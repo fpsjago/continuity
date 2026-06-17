@@ -7,6 +7,7 @@ capabilities:
   - IP door controllers, 2 & 4 door
   - Anti-passback, audit logging
   - Integration with video nodes
+image: ../../assets/img/serverroom.jpg
 order: 4
 ---
 Door-level control with biometric and credential terminals, panels, and exportable audit trails.

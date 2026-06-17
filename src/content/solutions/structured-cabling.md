@@ -7,6 +7,7 @@ capabilities:
   - LSZH & plenum jacket options
   - Patch panels, keystones, faceplates
   - As-built channel test reports
+image: ../../assets/img/cabling.jpg
 order: 1
 ---
 End-to-end copper infrastructure: horizontal runs, patch fields, and tested channels with documented headroom.

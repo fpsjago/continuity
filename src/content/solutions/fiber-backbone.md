@@ -7,6 +7,7 @@ capabilities:
   - Fusion splicing, LC/SC termination
   - OTDR bidirectional trace reports
   - Splice trays, enclosures, cassettes
+image: ../../assets/img/fiber.jpg
 order: 2
 ---
 Backbone runs designed to a loss budget, spliced clean, and documented with bidirectional OTDR traces.
