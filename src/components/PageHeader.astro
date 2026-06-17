@@ -1,4 +1,5 @@
 ---
+import Particles from './Particles.tsx';
 interface Props {
   plate: string;
   title: string;
@@ -8,8 +9,12 @@ const { plate, title, intro } = Astro.props;
 ---
 <section class="relative pt-20 pb-16 atmos-glow-top overflow-hidden border-b border-[var(--line)]">
   <div class="blueprint-grid absolute inset-0 opacity-50" aria-hidden="true"></div>
+  <Particles client:visible />
   <span class="float-corner left-6 top-24" aria-hidden="true"></span>
+  <span class="float-corner right-6 bottom-8 rotate-90" aria-hidden="true"></span>
   <span class="float-cross right-[10%] top-[40%]" aria-hidden="true"></span>
+  <span class="float-line left-[4%] bottom-[20%]" aria-hidden="true"></span>
+  <span class="float-ring right-[6%] -bottom-10" aria-hidden="true"></span>
   <div class="container relative z-10">
     <span class="kicker block mb-4">{plate}</span>
     <h1 class="text-[clamp(2.4rem,6vw,4.8rem)] max-w-[16ch] leading-[0.98]" set:html={title}></h1>

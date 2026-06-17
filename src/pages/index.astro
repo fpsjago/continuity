@@ -35,6 +35,7 @@ for (const p of featuredEntries) {
 
 const nodes = [
   { id: 'signal', label: 'Signal' },
+  { id: 'catalog', label: 'Catalog' },
   { id: 'backbone', label: 'Backbone' },
   { id: 'solutions', label: 'Systems' },
   { id: 'specimen', label: 'Specimen' },
@@ -48,11 +49,11 @@ const nodes = [
   <SignalSpine nodes={nodes} client:load />
 
   <Hero client:load />
+  <ProductRail products={featured} client:visible />
   <Backbone client:visible />
   <SolutionsSplit solutions={solutions} client:visible />
   <ProductCrossSection client:visible />
   <EquipmentRoom study={study} bgImg={dcBg.src} client:visible />
-  <ProductRail products={featured} client:visible />
   <Industries client:visible />
   <CTAConnect client:visible />
 

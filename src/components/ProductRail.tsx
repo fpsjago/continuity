@@ -24,7 +24,7 @@ export default function ProductRail({ products }: { products: Item[] }) {
       <div className="container relative z-10">
         <header className="flex items-end justify-between flex-wrap gap-5 mb-12">
           <div>
-            <span className="kicker block mb-4" data-reveal>Plate 04b · Catalog</span>
+            <span className="kicker block mb-4" data-reveal>Plate 02 · Catalog</span>
             <h2 className="text-[clamp(2rem,4.2vw,3.4rem)]" data-reveal>Straight from the index.</h2>
             <p className="mt-4 max-w-[40rem] text-[var(--text)]/80" data-reveal>
               A slice of the catalog. Every line is specified to a standard and ships with a test report.

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
+import Particles from './Particles';
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
@@ -46,14 +47,19 @@ export default function Hero() {
       className="relative min-h-screen flex items-center overflow-hidden atmos-glow-top pt-[88px] pb-16"
     >
       <div className="blueprint-grid absolute inset-0" aria-hidden="true" />
+      <Particles />
       <div className="bgtype text-[clamp(7rem,26vw,24rem)] -bottom-[6%] -right-[3%]" aria-hidden="true">
         OFC
       </div>
-      {/* corner registration */}
+      {/* corner registration + drafting marks */}
       <span className="float-corner left-6 top-[84px]" aria-hidden="true" />
       <span className="float-corner right-6 top-[84px] rotate-90" aria-hidden="true" />
-      <span className="float-line right-[14%] top-[30%]" aria-hidden="true" />
+      <span className="float-corner left-6 bottom-8 -rotate-90" aria-hidden="true" />
+      <span className="float-line right-[14%] top-[26%]" aria-hidden="true" />
+      <span className="float-line left-[3%] top-[40%]" aria-hidden="true" />
       <span className="float-cross left-[8%] bottom-[18%]" aria-hidden="true" />
+      <span className="float-cross right-[6%] top-[44%]" aria-hidden="true" />
+      <span className="float-ring right-[10%] bottom-[14%]" aria-hidden="true" />
 
       <div className="container relative z-10 grid lg:grid-cols-[1.05fr_0.95fr] gap-12 items-center">
         <div>

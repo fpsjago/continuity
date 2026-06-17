@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const links = [
+  { label: 'Catalog', href: `${base}products` },
   { label: 'Solutions', href: `${base}solutions` },
-  { label: 'Products', href: `${base}products` },
   { label: 'Case Studies', href: `${base}case-studies` },
   { label: 'About', href: `${base}about` },
 ];
