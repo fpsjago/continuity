@@ -43,9 +43,9 @@ export default function QuotePanel({ slug, name, sku }: { slug: string; name: st
         }`}
       >
         {added ? (
-          <><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 8l3 3 7-8" strokeLinecap="round" strokeLinejoin="round" /></svg> Added to quote</>
+          <><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 8l3 3 7-8" strokeLinecap="round" strokeLinejoin="round" /></svg> Added to cart</>
         ) : (
-          'Add to quote'
+          'Add to cart'
         )}
       </button>
 

@@ -30,14 +30,14 @@ export default function CartDrawer() {
     <>
       <button
         onClick={() => setOpen(true)}
-        aria-label={`Open quote (${n} items)`}
+        aria-label={`Open cart (${n} items)`}
         className="fixed bottom-6 right-6 z-[150] inline-flex items-center gap-2.5 bg-[var(--primary)] text-white font-semibold text-[0.9rem] pl-4 pr-5 py-3.5 rounded-full shadow-[0_14px_36px_-8px_rgba(204,0,0,0.6)] hover:-translate-y-0.5 transition-transform"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
           <path d="M3 4h2l2.4 12.4a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.8L21 8H6" strokeLinecap="round" strokeLinejoin="round" />
           <circle cx="9" cy="20" r="1.4" fill="currentColor" stroke="none" /><circle cx="18" cy="20" r="1.4" fill="currentColor" stroke="none" />
         </svg>
-        Quote
+        Cart
         {n > 0 && (
           <span className="ml-0.5 min-w-[22px] h-[22px] grid place-items-center rounded-full bg-white text-[var(--primary)] text-[0.72rem] font-bold px-1.5">{n}</span>
         )}
@@ -59,7 +59,7 @@ export default function CartDrawer() {
       >
         <header className="flex items-center justify-between px-6 py-5 border-b border-[var(--line)]">
           <div>
-            <h2 className="font-[var(--font-heading)] text-[1.3rem]">Your quote</h2>
+            <h2 className="font-[var(--font-heading)] text-[1.3rem]">Your cart</h2>
             <p className="mono text-[0.6rem] text-[var(--muted)]">{n} item{n === 1 ? '' : 's'} · no checkout, no payment</p>
           </div>
           <button onClick={() => setOpen(false)} aria-label="Close" className="w-9 h-9 grid place-items-center border border-[var(--line-strong)] rounded-lg hover:border-[var(--ink)] transition-colors">

@@ -33,10 +33,12 @@ function CatGlyph({ category }: { category: string }) {
 export default function ProductCard({ slug, name, sku, category, tagline, specs, img }: Props) {
   const href = `${base}products/${slug}`;
   const [added, setAdded] = useState(false);
+  const [qty, setQty] = useState(1);
 
   const add = () => {
-    addItem({ slug, name, sku });
+    addItem({ slug, name, sku }, qty);
     setAdded(true);
+    setQty(1);
     setTimeout(() => setAdded(false), 1300);
   };
 
@@ -64,24 +66,29 @@ export default function ProductCard({ slug, name, sku, category, tagline, specs,
             </div>
           ))}
         </dl>
-        <div className="mt-4 flex items-center justify-between gap-3">
-          <a href={href} className="inline-flex items-center gap-1.5 font-semibold text-[0.82rem]">
-            Spec sheet <span className="text-[var(--primary)] group-hover:translate-x-1 transition-transform">→</span>
-          </a>
+        <div className="mt-4 flex items-center gap-2">
+          <div className="flex items-center shrink-0 border border-[var(--line-strong)] rounded-[8px]">
+            <button onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Decrease quantity" className="w-8 h-9 grid place-items-center text-[var(--muted)] hover:text-[var(--ink)]">−</button>
+            <span className="mono text-[0.78rem] w-6 text-center">{qty}</span>
+            <button onClick={() => setQty((q) => q + 1)} aria-label="Increase quantity" className="w-8 h-9 grid place-items-center text-[var(--muted)] hover:text-[var(--ink)]">+</button>
+          </div>
           <button
             onClick={add}
-            aria-label={`Add ${name} to quote`}
-            className={`inline-flex items-center gap-1.5 text-[0.76rem] font-semibold px-3 py-2 rounded-[8px] border transition-colors ${
-              added ? 'border-[#1d9a5a] text-[#1d9a5a] bg-[#eafaf1]' : 'border-[var(--line-strong)] text-[var(--ink)] hover:border-[var(--primary)] hover:text-[var(--primary)]'
+            aria-label={`Add ${name} to cart`}
+            className={`flex-1 inline-flex items-center justify-center gap-1.5 text-[0.8rem] font-semibold px-3 py-2.5 rounded-[8px] transition-colors ${
+              added ? 'bg-[#eafaf1] text-[#1d9a5a] border border-[#1d9a5a]' : 'bg-[var(--ink)] text-[var(--bg)] hover:brightness-110'
             }`}
           >
             {added ? (
               <><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 8l3 3 7-8" strokeLinecap="round" strokeLinejoin="round" /></svg> Added</>
             ) : (
-              <><span className="text-[1rem] leading-none">+</span> Quote</>
+              'Add to cart'
             )}
           </button>
         </div>
+        <a href={href} className="inline-flex items-center gap-1.5 mt-3 font-semibold text-[0.78rem] text-[var(--muted)] hover:text-[var(--ink)] transition-colors">
+          View spec sheet <span className="text-[var(--primary)]">→</span>
+        </a>
       </div>
     </div>
   );

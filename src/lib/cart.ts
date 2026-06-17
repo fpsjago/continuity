@@ -63,20 +63,32 @@ export function subscribe(cb: () => void): () => void {
   };
 }
 
-/** Build a clean, WhatsApp-formatted quote message. */
+/** Build a clean, WhatsApp-formatted quote message with a monospace table. */
 export function buildMessage(items: CartItem[]): string {
-  const lines = [
+  const NW = 24; // item name column width
+  const trunc = (s: string) => (s.length > NW ? s.slice(0, NW - 1) + '…' : s);
+  const pad = (s: string, n: number) => (s + ' '.repeat(n)).slice(0, n);
+
+  const header = `${pad('QTY', 4)}${pad('ITEM', NW + 1)}SKU`;
+  const sep = '─'.repeat(4) + '─'.repeat(NW + 1) + '─'.repeat(14);
+  const rows = items.map((i) => `${pad(i.qty + '×', 4)}${pad(trunc(i.name), NW + 1)}${i.sku}`);
+  const units = items.reduce((n, i) => n + i.qty, 0);
+
+  return [
     `*${BRAND} — Quote Request*`,
     '',
-    "Hi, I'd like a quote for the following:",
+    "Hi, I'd like a quote for the following items:",
     '',
-    ...items.map((i, n) => `${n + 1}. ${i.qty}× ${i.name}  (${i.sku})`),
+    '```',
+    header,
+    sep,
+    ...rows,
+    '```',
     '',
-    `Total line items: ${items.length}`,
+    `*Line items:* ${items.length}   *Total units:* ${units}`,
     '',
     'Please send pricing, lead time and a stamped spec sheet. Thank you.',
-  ];
-  return lines.join('\n');
+  ].join('\n');
 }
 
 export function whatsappUrl(items: CartItem[]): string {
