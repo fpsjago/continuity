@@ -7,6 +7,7 @@ interface Props {
   category: string;
   tagline: string;
   specs: { label: string; value: string }[];
+  img?: string;
 }
 
 function CatGlyph({ category }: { category: string }) {
@@ -17,38 +18,47 @@ function CatGlyph({ category }: { category: string }) {
     Switching: <g><rect x="14" y="24" width="52" height="20" rx="3" /><path d="M22 44 v6 M30 44 v6 M38 44 v6 M46 44 v6 M54 44 v6" /></g>,
     Surveillance: <g><path d="M22 24 a18 18 0 0 1 36 0 z" /><circle cx="40" cy="26" r="6" /></g>,
     Access: <g><rect x="26" y="16" width="28" height="40" rx="3" /><circle cx="40" cy="32" r="7" /></g>,
+    Networking: <g><rect x="18" y="16" width="44" height="44" rx="3" /><path d="M26 26 h28 M26 34 h28 M26 42 h16" /></g>,
   };
   return (
-    <svg viewBox="0 0 80 64" className="w-20 h-16 text-[var(--ink)]" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
+    <svg viewBox="0 0 80 64" className="w-16 h-14 text-[var(--accent)]" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
       {map[category] ?? map.Cabling}
     </svg>
   );
 }
 
-export default function ProductCard({ slug, name, sku, category, tagline, specs }: Props) {
+export default function ProductCard({ slug, name, sku, category, tagline, specs, img }: Props) {
   return (
     <a
       href={`${base}products/${slug}`}
-      className="group relative flex flex-col bg-[var(--surface)] border border-[var(--line)] rounded-[14px] p-6 hover:border-[var(--accent)] hover:-translate-y-1 transition-[transform,border-color] duration-300"
+      className="group relative flex flex-col bg-[var(--surface)] border border-[var(--line)] rounded-[14px] overflow-hidden hover:border-[var(--accent)] hover:-translate-y-1 transition-[transform,border-color] duration-300"
     >
-      <div className="flex items-start justify-between mb-5">
-        <CatGlyph category={category} />
-        <span className="mono text-[0.6rem] text-[var(--accent)] border border-[var(--line-strong)] rounded-full px-2.5 py-1">{category}</span>
+      <div className="relative h-44 overflow-hidden bg-gradient-to-br from-[#e7ebf1] to-[#d6dce6] flex items-center justify-center">
+        {img ? (
+          <img src={img} alt={name} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]" />
+        ) : (
+          <CatGlyph category={category} />
+        )}
+        <span className="absolute top-3 left-3 mono text-[0.58rem] bg-[var(--surface)]/85 backdrop-blur-sm text-[var(--accent)] border border-[var(--line)] rounded-full px-2.5 py-1">
+          {category}
+        </span>
       </div>
-      <h3 className="font-[var(--font-heading)] text-[1.25rem] font-semibold leading-tight">{name}</h3>
-      <p className="mono text-[0.62rem] text-[var(--muted)] mt-1">{sku}</p>
-      <p className="text-[0.9rem] text-[var(--text)]/80 mt-3 leading-relaxed">{tagline}</p>
-      <dl className="mt-5 pt-4 border-t border-[var(--line)] grid grid-cols-2 gap-y-2 gap-x-4">
-        {specs.slice(0, 4).map((s) => (
-          <div key={s.label}>
-            <dt className="mono text-[0.56rem] text-[var(--muted)]">{s.label}</dt>
-            <dd className="font-[var(--font-mono)] text-[0.74rem] text-[var(--ink)]">{s.value}</dd>
-          </div>
-        ))}
-      </dl>
-      <span className="inline-flex items-center gap-1.5 mt-5 font-semibold text-[0.85rem]">
-        Spec sheet <span className="text-[var(--primary)] group-hover:translate-x-1 transition-transform">→</span>
-      </span>
+      <div className="p-5 flex flex-col flex-1">
+        <h3 className="font-[var(--font-heading)] text-[1.15rem] font-semibold leading-tight">{name}</h3>
+        <p className="mono text-[0.6rem] text-[var(--muted)] mt-1">{sku}</p>
+        <p className="text-[0.86rem] text-[var(--text)]/80 mt-2.5 leading-relaxed flex-1">{tagline}</p>
+        <dl className="mt-4 pt-3.5 border-t border-[var(--line)] grid grid-cols-2 gap-y-1.5 gap-x-4">
+          {specs.slice(0, 4).map((s) => (
+            <div key={s.label}>
+              <dt className="mono text-[0.54rem] text-[var(--muted)]">{s.label}</dt>
+              <dd className="font-[var(--font-mono)] text-[0.72rem] text-[var(--ink)]">{s.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <span className="inline-flex items-center gap-1.5 mt-4 font-semibold text-[0.82rem]">
+          Spec sheet <span className="text-[var(--primary)] group-hover:translate-x-1 transition-transform">→</span>
+        </span>
+      </div>
     </a>
   );
 }

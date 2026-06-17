@@ -11,6 +11,7 @@ interface Item {
   category: string;
   tagline: string;
   specs: { label: string; value: string }[];
+  img?: string;
 }
 
 export default function ProductRail({ products }: { products: Item[] }) {
@@ -37,7 +38,7 @@ export default function ProductRail({ products }: { products: Item[] }) {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((p) => (
             <div data-reveal key={p.slug}>
-              <ProductCard slug={p.slug} name={p.name} sku={p.sku} category={p.category} tagline={p.tagline} specs={p.specs} />
+              <ProductCard slug={p.slug} name={p.name} sku={p.sku} category={p.category} tagline={p.tagline} specs={p.specs} img={p.img} />
             </div>
           ))}
         </div>

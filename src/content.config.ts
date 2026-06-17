@@ -7,7 +7,7 @@ const products = defineCollection({
     z.object({
       name: z.string(),
       sku: z.string(),
-      category: z.enum(['Cabling', 'Connectors', 'Fiber', 'Switching', 'Surveillance', 'Access']),
+      category: z.enum(['Cabling', 'Connectors', 'Fiber', 'Switching', 'Surveillance', 'Access', 'Networking']),
       tagline: z.string(),
       image: image().optional(),
       specs: z.array(z.object({ label: z.string(), value: z.string() })),

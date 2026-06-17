@@ -24,10 +24,14 @@ const study = studies[0].data;
 
 const dcBg = await getImage({ src: datacenterImg, format: 'webp', width: 1600 });
 
-const featured = (await getCollection('products'))
+const featuredEntries = (await getCollection('products'))
   .filter((p) => p.data.featured)
-  .sort((a, b) => a.data.order - b.data.order)
-  .map((p) => ({ slug: p.id, name: p.data.name, sku: p.data.sku, category: p.data.category, tagline: p.data.tagline, specs: p.data.specs }));
+  .sort((a, b) => a.data.order - b.data.order);
+const featured = [];
+for (const p of featuredEntries) {
+  const img = p.data.image ? (await getImage({ src: p.data.image, format: 'webp', width: 560 })).src : undefined;
+  featured.push({ slug: p.id, name: p.data.name, sku: p.data.sku, category: p.data.category, tagline: p.data.tagline, specs: p.data.specs, img });
+}
 
 const nodes = [
   { id: 'signal', label: 'Signal' },

@@ -2,14 +2,14 @@
 name: RJ45 Cat 6A Shielded Plug
 sku: CON-6A-SH
 category: Connectors
-tagline: Field-terminable 8P8C shielded plug with load bar. Tool-fastened, retest-clean.
-standard: ANSI/TIA-568.2-D
+tagline: Field-terminable shielded 8P8C plug with load bar.
+image: ../../assets/img/products/rj45.jpg
+standard: TIA-568.2-D
 featured: true
-order: 2
+order: 3
 specs:
-  - { label: Type, value: "8P8C · shielded" }
-  - { label: Plating, value: 50 µin gold flash }
-  - { label: Wire range, value: 22–26 AWG }
-  - { label: Mating cycles, value: "≥ 750" }
-  - { label: Rating, value: Cat 6A · 500 MHz }
+  - { label: "Type", value: "8P8C shielded" }
+  - { label: "Plating", value: "50 µin gold" }
+  - { label: "Wire", value: "22–26 AWG" }
+  - { label: "Cycles", value: "≥ 750" }
 ---

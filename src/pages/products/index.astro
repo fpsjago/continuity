@@ -1,33 +1,66 @@
 ---
 import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
 import Page from '../../layouts/Page.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import ProductCard from '../../components/ProductCard.tsx';
 
 const products = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);
-const cats = [...new Set(products.map((p) => p.data.category))];
+const order = ['Surveillance', 'Cabling', 'Connectors', 'Fiber', 'Switching', 'Networking', 'Access'];
+const cats = order.filter((c) => products.some((p) => p.data.category === c));
+
+const imgs: Record<string, string> = {};
+for (const p of products) {
+  if (p.data.image) imgs[p.id] = (await getImage({ src: p.data.image, format: 'webp', width: 560 })).src;
+}
 ---
 
-<Page title="Products — CONTINUITY" description="The CONTINUITY product index: cabling, connectors, fiber, switching, surveillance and access hardware, each with a full spec sheet.">
+<Page title="Products — CONTINUITY" description="The CONTINUITY product index: cameras, cabling, fiber, switching, racks and access hardware — each with a full spec sheet.">
   <PageHeader
     plate="Index · Products"
     title="The product index."
-    intro="Every line is specified to a standard and tested as a channel. Browse by system, or open a plate for the full spec sheet."
+    intro="Cameras, cabling, fiber, switching, racks and access control. Every line is specified to a standard. Filter by system, or open a plate for the full spec sheet."
   />
-  <section class="py-20 atmos-glow overflow-hidden">
-    <div class="bgtype text-[clamp(5rem,15vw,13rem)] top-[4%] right-[-2%]" aria-hidden="true">INDEX</div>
+  <section class="py-16 atmos-glow overflow-hidden">
+    <div class="bgtype text-[clamp(5rem,15vw,13rem)] top-[3%] right-[-2%]" aria-hidden="true">INDEX</div>
     <div class="container relative z-10">
-      <div class="flex flex-wrap gap-2 mb-10">
-        <span class="mono text-[0.66rem] border border-[var(--ink)] rounded-full px-3.5 py-1.5">ALL · {products.length}</span>
+      <div class="flex flex-wrap gap-2 mb-10" id="filters">
+        <button class="filter-btn is-active mono text-[0.66rem] rounded-full px-4 py-2 transition-colors" data-filter="all">ALL · {products.length}</button>
         {cats.map((c) => (
-          <span class="mono text-[0.66rem] border border-[var(--line-strong)] text-[var(--muted)] rounded-full px-3.5 py-1.5">{c}</span>
+          <button class="filter-btn mono text-[0.66rem] rounded-full px-4 py-2 transition-colors" data-filter={c}>{c}</button>
         ))}
       </div>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="grid">
         {products.map((p) => (
-          <ProductCard slug={p.id} name={p.data.name} sku={p.data.sku} category={p.data.category} tagline={p.data.tagline} specs={p.data.specs} />
+          <div class="prod" data-cat={p.data.category}>
+            <ProductCard slug={p.id} name={p.data.name} sku={p.data.sku} category={p.data.category} tagline={p.data.tagline} specs={p.data.specs} img={imgs[p.id]} />
+          </div>
         ))}
       </div>
     </div>
   </section>
+
+  <style>
+    .filter-btn { border: 1px solid var(--line-strong); color: var(--muted); cursor: pointer; }
+    .filter-btn:hover { color: var(--ink); border-color: var(--ink); }
+    .filter-btn.is-active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  </style>
+  <script>
+    function initFilters() {
+      const btns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+      const cards = document.querySelectorAll<HTMLElement>('#grid .prod');
+      btns.forEach((b) =>
+        b.addEventListener('click', () => {
+          btns.forEach((x) => x.classList.remove('is-active'));
+          b.classList.add('is-active');
+          const f = b.dataset.filter;
+          cards.forEach((c) => {
+            const show = f === 'all' || c.dataset.cat === f;
+            c.style.display = show ? '' : 'none';
+          });
+        })
+      );
+    }
+    document.addEventListener('astro:page-load', initFilters);
+  </script>
 </Page>
